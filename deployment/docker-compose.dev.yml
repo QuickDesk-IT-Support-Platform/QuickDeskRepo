@@ -1,5 +1,5 @@
-
-name: template-project
+name: template-project-dev
+version: "3.8"
 
 services:
   db:
@@ -12,6 +12,36 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+
+  api:
+    build: ../api
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      POSTGRES_SERVER: ${POSTGRES_SERVER:-db}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-mydatabase}
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+  web-dev:
+    build:
+      context: ../web
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    ports:
+      - "5173:5173"    
+    volumes:
+      - ../web:/app:cached    # Monta o código local → hot reload
+      - /app/node_modules  # Evita conflitos de dependências
+
+    environment:
+      NODE_ENV: development
+      # Use polling if needed (uncomment or set in your env) e.g. CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - api
+    command: ["npm","run","dev","--","--host","0.0.0.0"]
 
 volumes:
   db_data:
