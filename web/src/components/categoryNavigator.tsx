@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react"
 import * as LucideIcons from "lucide-react"
 import { mockCategories } from "@/mock/categories"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
-export function CategoryNavigator({ onPathChange }) {
-  const [path, setPath] = useState([])
+export function CategoryNavigator({ path, setPath }) {
   const currentCategory = path[path.length - 1]
   const currentChildren = currentCategory ? currentCategory.children : mockCategories
 
@@ -15,17 +13,12 @@ export function CategoryNavigator({ onPathChange }) {
 
   const handleBack = () => setPath(path.slice(0, -1))
 
-  useEffect(() => {
-    if (onPathChange) onPathChange(path)
-  }, [path, onPathChange])
-
   const handleRequest = (category) => {
     alert(`Creating service request for: ${category.name}`)
   }
 
   return (
     <div className="p-6">
-      {/* Back button */}
       {path.length > 0 && (
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -37,7 +30,6 @@ export function CategoryNavigator({ onPathChange }) {
         </motion.button>
       )}
 
-      {/* Title & Description */}
       <motion.h2
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -46,6 +38,7 @@ export function CategoryNavigator({ onPathChange }) {
       >
         {currentCategory?.name || "Service Categories"}
       </motion.h2>
+
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -55,7 +48,6 @@ export function CategoryNavigator({ onPathChange }) {
         {currentCategory?.description || "Select a category to explore our services."}
       </motion.p>
 
-      {/* Grid of cards */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentCategory ? currentCategory.id : "root"}
@@ -80,7 +72,6 @@ export function CategoryNavigator({ onPathChange }) {
                 whileTap={{ scale: 0.98 }}
                 className="group p-6 rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-xl transition-all cursor-pointer"
               >
-                {/* Ícone */}
                 <motion.div
                   className="flex justify-center mb-4"
                   whileHover={{ rotate: 5 }}
@@ -89,7 +80,6 @@ export function CategoryNavigator({ onPathChange }) {
                   <IconComponent className={`${cat.color} h-10 w-10`} />
                 </motion.div>
 
-                {/* Título e descrição */}
                 <h3 className="text-lg font-semibold text-gray-800 text-center mb-1">
                   {cat.name}
                 </h3>
@@ -97,7 +87,6 @@ export function CategoryNavigator({ onPathChange }) {
                   {cat.description}
                 </p>
 
-                {/* Botão apenas para categorias folha */}
                 {isLeaf && (
                   <div className="flex justify-center">
                     <Button
