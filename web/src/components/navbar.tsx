@@ -36,6 +36,12 @@ export function Navbar() {
                 Home
               </Link>
             </Button>
+            <Button variant="ghost" size="lg" asChild>
+              <Link to="/services/indexServices" className="[&.active]:bg-accent [&.active]:text-accent-foreground">
+                <Ticket className="h-4 w-4 mr-2" />
+                Services
+              </Link>
+            </Button>
 
             <Button variant="ghost" size="lg" asChild>
               <Link to="/" className="[&.active]:bg-accent [&.active]:text-accent-foreground">
