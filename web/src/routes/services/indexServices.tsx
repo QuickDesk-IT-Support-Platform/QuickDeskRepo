@@ -1,46 +1,63 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useProduct } from '@/hooks/use-product';
-import { ProductsTable } from '@/components/products-table';
+import { useState } from "react"
+import { createFileRoute } from "@tanstack/react-router"
+import { CategoryNavigator } from "@/components/categoryNavigator"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
-export const Route = createFileRoute('/services/indexServices')({
-  component: Index,
+export const Route = createFileRoute("/services/indexServices")({
+  component: ServicesPage,
 })
 
-function Index() {
+function ServicesPage() {
+  const [path, setPath] = useState([])
 
-  const { data: products, isLoading, isError } = useProduct();
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-3xl font-bold">Products</h1>
-          <p className="text-muted-foreground">
-            Manage your product inventory!!!
-          </p>
-        </div>
-        
-        {isLoading && (
-          <div className="flex items-center justify-center py-8">
-            <p>Loading products...</p>
-          </div>
-        )}
-        
-        {isError && (
-          <div className="flex items-center justify-center py-8">
-            <p className="text-destructive">Error loading products</p>
-          </div>
-        )}
-        
-        {products && products.length > 0 ? (
-          <ProductsTable products={products} />
-        ) : (
-          !isLoading && !isError && (
-            <div className="flex items-center justify-center py-8">
-              <p className="text-muted-foreground">No products found</p>
-            </div>
-          )
-        )}
-      </div>
-    </div>
+    <main className="min-h-screen bg-gray-50 flex flex-col items-center">
+      {/* Header */}
+      <section className="w-full text-center mt-12 mb-8">
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">Services</h1>
+        <p className="text-gray-500 text-lg">Select a service to request</p>
+      </section>
+
+      {/* Categorias */}
+      <section className="w-full max-w-6xl px-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            {/* Página principal */}
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/services/indexServices">Services</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            {path.map((category, index) => (
+              <>
+                <BreadcrumbSeparator key={`sep-${index}`} />
+                <BreadcrumbItem key={category.id}>
+                  {index === path.length - 1 ? (
+                    <BreadcrumbPage>{category.name}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <button
+                        onClick={() => setPath(path.slice(0, index + 1))}
+                        className="text-gray-700 hover:text-orange-600"
+                      >
+                        {category.name}
+                      </button>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+              </>
+            ))}
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <CategoryNavigator onPathChange={setPath} />
+      </section>
+    </main>
   )
 }
