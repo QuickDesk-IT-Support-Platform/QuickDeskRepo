@@ -16,13 +16,14 @@ export function Navbar() {
     <nav className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-md">
       <div className="flex items-center justify-between w-full px-7 py-3">
         {/* Logo/Brand */}
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2 group transition-transform">
           <img
             src={logo}
             alt="QuickDesk Logo"
-            className="h-15 scale-400 w-auto object-contain ml-23"
+            className="h-15 ml-23 scale-400 w-auto object-contain transform transition-transform duration-200 group-hover:scale-360"
           />
-        </div>
+        </Link>
+
 
         {/* Right side */}
         <div className="flex items-center gap-3">
