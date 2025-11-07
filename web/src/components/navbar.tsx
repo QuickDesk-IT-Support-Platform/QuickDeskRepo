@@ -20,7 +20,7 @@ export function Navbar() {
           <img
             src={logo}
             alt="QuickDesk Logo"
-            className="h-12 w-auto object-contain"
+            className="h-15 scale-400 w-auto object-contain ml-23"
           />
         </div>
 
