@@ -1,9 +1,11 @@
 import * as LucideIcons from "lucide-react"
+import { useNavigate } from "@tanstack/react-router"
 import { mockCategories } from "@/mock/categories"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
 export function CategoryNavigator({ path, setPath }) {
+  const navigate = useNavigate()
   const currentCategory = path[path.length - 1]
   const currentChildren = currentCategory ? currentCategory.children : mockCategories
 
@@ -14,7 +16,7 @@ export function CategoryNavigator({ path, setPath }) {
   const handleBack = () => setPath(path.slice(0, -1))
 
   const handleRequest = (category) => {
-    alert(`Creating service request for: ${category.name}`)
+    navigate({ to: "/tickets/createTicket", search: { categoryId: category.id } })
   }
 
   return (
