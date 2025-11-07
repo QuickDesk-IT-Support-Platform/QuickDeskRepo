@@ -20,7 +20,7 @@ export function Navbar() {
           <img
             src={logo}
             alt="QuickDesk Logo"
-            className="h-15 ml-23 scale-400 w-auto object-contain transform transition-transform duration-200 group-hover:scale-360"
+            className="h-15 ml-23 scale-300 w-auto object-contain transform transition-transform duration-200 group-hover:scale-360"
           />
         </Link>
 

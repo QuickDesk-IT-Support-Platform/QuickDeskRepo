@@ -1,15 +1,17 @@
-FROM node:22-alpine AS build
+# Imagem base leve com Node.js
+FROM node:22-alpine
 
-
+# Diretório de trabalho
 WORKDIR /app
 
+# Copia apenas os ficheiros de dependências primeiro (cache eficiente)
 COPY package.json package-lock.json ./
 
-
-# Install dependencies
+# Instala as dependências
 RUN npm install
 
-# Copy source files into application directory
-COPY --chown=app:app . /app
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Expõe a porta do Vite (padrão 5173)
+EXPOSE 5173
+
+# Comando padrão (podes sobrescrever no docker-compose)
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
