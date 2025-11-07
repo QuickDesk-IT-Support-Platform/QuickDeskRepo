@@ -1,7 +1,15 @@
 import { Link } from '@tanstack/react-router'
 import { Button } from './ui/button'
-import { HomeIcon, Plus, Package, Ticket } from 'lucide-react'
+import { HomeIcon, Plus, Package, Ticket, LogOut, Settings, User } from 'lucide-react'
 import { AvatarDemo } from "./ui/avatar-demo"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "./ui/dropdown-menu"
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar"
 import logo from "./ui/logo.png"
 
 
@@ -35,7 +43,29 @@ export function Navbar() {
                 My Tickets
               </Link>
             </Button>
-            <AvatarDemo />
+            {/* Avatar dropdown menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="focus:outline-none">
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage src="https://github.com/shadcn.png" alt="@user" />
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end" className="w-48 bg-white text-black">
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" /> Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" /> Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </nav>
