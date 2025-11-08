@@ -3,11 +3,12 @@ import { useNavigate } from "@tanstack/react-router"
 import { mockCategories } from "@/mock/categories"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-
+import {ArrowBigLeft} from "lucide-react"
 export function CategoryNavigator({ path, setPath }) {
   const navigate = useNavigate()
   const currentCategory = path[path.length - 1]
   const currentChildren = currentCategory ? currentCategory.children : mockCategories
+  const CurrentIcon = currentCategory ? (LucideIcons[currentCategory.icon] || LucideIcons.HelpCircle) : null
 
   const handleSelect = (category) => {
     if (category.children?.length) setPath([...path, category])
@@ -20,35 +21,47 @@ export function CategoryNavigator({ path, setPath }) {
   }
 
   return (
-    <div className="p-6">
-      {path.length > 0 && (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleBack}
-          className="text-orange-600 mb-4 font-medium"
-        >
-          ← Back
-        </motion.button>
-      )}
+    <div className="p-6 ">
+      <div className="flex flex-row items-center gap-2 mb-10"> 
+          {path.length > 0 && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleBack}
+            className="text-orange-600 mb-4 font-medium"
+          >
+            <ArrowBigLeft className="inline-block mr-2" />
+          </motion.button>
+        )}
 
-      <motion.h2
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="text-2xl font-bold mb-2"
-      >
-        {currentCategory?.name || "Service Categories"}
-      </motion.h2>
+        <div className="flex flex-col">
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
-        className="text-gray-600 mb-6"
-      >
-        {currentCategory?.description || "Select a category to explore our services."}
-      </motion.p>
+            <motion.h2
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="text-2xl font-bold mb-2"
+          >
+            {currentCategory?.name }
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-600 mb-6"
+          >
+            {currentCategory?.description }
+          </motion.p>
+
+        </div>
+        
+  
+        
+
+
+      </div>
+
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -57,7 +70,7 @@ export function CategoryNavigator({ path, setPath }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 "
         >
           {currentChildren.map((cat) => {
             const IconComponent = LucideIcons[cat.icon] || LucideIcons.HelpCircle
