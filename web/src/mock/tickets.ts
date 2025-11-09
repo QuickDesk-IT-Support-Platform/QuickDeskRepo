@@ -37,5 +37,18 @@ export const mockTickets = [
         created_at: "04-11-2025",
         updated_at: null,
         closed_at: null
+    },
+    {
+        id: 4,
+        service: "Network issues on mobile phone.",
+        form_id: 4,
+        user: "jvbatista",
+        assigned_to: "admin",
+        ticket_status: "Assigned" as const,
+        ticket_priority: "High" as const,
+        description: "Can't access the organization's Wi-Fi network.",
+        created_at: "04-11-2025",
+        updated_at: null,
+        closed_at: null
     }
 ]
