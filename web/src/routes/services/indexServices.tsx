@@ -28,9 +28,13 @@ function ServicesPage() {
         
         <Breadcrumb className="flex items-center p-2">
           <BreadcrumbList>
-            <BreadcrumbItem className={`${path.length === 0 ? "bg-orange-600 text-white" : "bg-orange-300"} flex items-center h-12 rounded-full px-4 py-2`}>
-              <BreadcrumbLink href="/services/indexServices">Services</BreadcrumbLink>
+            {path.length != 0 &&
+            <BreadcrumbItem className="text-white flex items-center h-12 rounded-full px-4 py-2">
+              <BreadcrumbPage>Services</BreadcrumbPage>
             </BreadcrumbItem>
+           
+            
+            }
 
             {path.map((category, index) => (
               <Fragment key={category.id}>
@@ -40,7 +44,7 @@ function ServicesPage() {
                 <BreadcrumbItem>
                   {index === path.length - 1 ? (
                     /* Current page - highlighted */
-                    <BreadcrumbPage className="flex items-center bg-orange-600 text-white h-12 rounded-full px-4 py-2">
+                    <BreadcrumbPage className="flex items-center  text-black h-12 rounded-full px-4 py-2">
                       <span className="font-medium">{category.name}</span>
                     </BreadcrumbPage>
                   ) : (
@@ -48,7 +52,7 @@ function ServicesPage() {
                     <BreadcrumbLink asChild>
                       <button
                         onClick={() => setPath(path.slice(0, index + 1))}
-                        className="flex items-center bg-orange-300 text-white h-12 rounded-full px-4 py-2 hover:brightness-95"
+                        className="flex items-center  text-black h-12 rounded-full px-4 py-2 hover:brightness-95"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
