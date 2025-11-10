@@ -28,7 +28,6 @@ function CreateTicketPage() {
   const { categoryId } = useSearch({ from: "/tickets/createTicket" })
   const [submitted, setSubmitted] = useState(false)
 
-  // 🔍 Encontra a categoria correta no mock
   const category = findCategoryById(mockCategories, Number(categoryId)) || {
     name: "Unknown Category",
     description: "Category not found.",
@@ -38,11 +37,21 @@ function CreateTicketPage() {
 
   const IconComponent = LucideIcons[category.icon] || LucideIcons.HelpCircle
 
-  // Configuração do formulário
   const form = useForm({
-    defaultValues: Object.fromEntries(mockFormDefinition.map((f) => [f.id, ""])),
+    defaultValues: Object.fromEntries(
+      mockFormDefinition.fields.map((f) => [f.name, f.default_value || ""])
+    ),
     onSubmit: async ({ value }) => {
-      console.log("Form Submitted:", { category, ...value })
+      const submission = {
+        form_id: mockFormDefinition.id,
+        organization_id: mockFormDefinition.organization_id,
+        service_id: mockFormDefinition.service_id,
+        category_path: mockFormDefinition.category_path,
+        responses: value,
+        submitted_at: new Date().toISOString(),
+      }
+
+      console.log("📤 Ticket Submission:", submission)
       setSubmitted(true)
       setTimeout(() => setSubmitted(false), 3000)
     },
@@ -51,7 +60,7 @@ function CreateTicketPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-6">
       <div className="flex flex-col md:flex-row gap-12 w-full max-w-6xl">
-        {/* Lado Esquerdo - Categoria */}
+        {/* --- Esquerda: Categoria --- */}
         <motion.div
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -65,7 +74,7 @@ function CreateTicketPage() {
           <p className="text-gray-500 text-sm">{category.description}</p>
         </motion.div>
 
-        {/* Lado Direito - Formulário */}
+        {/* --- Direita: Formulário --- */}
         <motion.form
           onSubmit={(e) => {
             e.preventDefault()
@@ -76,60 +85,78 @@ function CreateTicketPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="md:w-2/3 bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-xl font-semibold text-gray-800 mb-6">Create Ticket</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-6">{mockFormDefinition.name}</h3>
 
-          {/* Geração dinâmica de campos */}
-          {mockFormDefinition.map((field) => (
-            <form.Field
-              key={field.id}
-              name={field.id}
-              children={(fieldApi) => (
-                <div className="mb-6">
-                  <label className="block font-medium text-gray-700 mb-1">
-                    {field.label}
-                  </label>
+          {/* --- Campos Dinâmicos --- */}
+          {mockFormDefinition.fields
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+            .map((field) => (
+              <form.Field
+                key={field.field_id}
+                name={field.name}
+                children={(fieldApi) => (
+                  <div className="mb-6">
+                    <label className="block font-medium text-gray-700 mb-1">
+                      {field.label}
+                    </label>
 
-                  {field.type === "text" && (
-                    <Input
-                      placeholder={field.placeholder}
-                      value={fieldApi.state.value || ""}
-                      onChange={(e) => fieldApi.handleChange(e.target.value)}
-                      required={field.required}
-                    />
-                  )}
+                    {field.type === "text" && (
+                      <Input
+                        placeholder={field.placeholder}
+                        value={fieldApi.state.value || ""}
+                        onChange={(e) => fieldApi.handleChange(e.target.value)}
+                        required={field.required}
+                      />
+                    )}
 
-                  {field.type === "textarea" && (
-                    <Textarea
-                      placeholder={field.placeholder}
-                      value={fieldApi.state.value || ""}
-                      onChange={(e) => fieldApi.handleChange(e.target.value)}
-                      required={field.required}
-                    />
-                  )}
+                    {field.type === "textarea" && (
+                      <Textarea
+                        placeholder={field.placeholder}
+                        value={fieldApi.state.value || ""}
+                        onChange={(e) => fieldApi.handleChange(e.target.value)}
+                        required={field.required}
+                      />
+                    )}
 
-                  {field.type === "date" && (
-                    <Input
-                      type="date"
-                      value={fieldApi.state.value || ""}
-                      onChange={(e) => fieldApi.handleChange(e.target.value)}
-                    />
-                  )}
+                    {field.type === "select" && (
+                      <select
+                        className="border border-gray-300 rounded-md p-2 w-full text-gray-700"
+                        value={fieldApi.state.value || ""}
+                        onChange={(e) => fieldApi.handleChange(e.target.value)}
+                        required={field.required}
+                      >
+                        <option value="">Select...</option>
+                        {field.options?.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    )}
 
-                  {field.type === "file" && (
-                    <Input
-                      type="file"
-                      multiple
-                      onChange={(e) =>
-                        fieldApi.handleChange(Array.from(e.target.files || []))
-                      }
-                    />
-                  )}
-                </div>
-              )}
-            />
-          ))}
+                    {field.type === "date" && (
+                      <Input
+                        type="date"
+                        value={fieldApi.state.value || ""}
+                        onChange={(e) => fieldApi.handleChange(e.target.value)}
+                      />
+                    )}
 
-          {/* Botão Submit */}
+                    {field.type === "file" && (
+                      <Input
+                        type="file"
+                        multiple
+                        onChange={(e) =>
+                          fieldApi.handleChange(Array.from(e.target.files || []))
+                        }
+                      />
+                    )}
+                  </div>
+                )}
+              />
+            ))}
+
+          {/* --- Botão de Envio --- */}
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
             <Button
               type="submit"

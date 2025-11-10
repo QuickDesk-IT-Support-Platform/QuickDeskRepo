@@ -23,7 +23,7 @@ const carouselData = [
   },
   {
     id: 3,
-    title: "Enjoy.",
+    title: "Just Do It.",
     image:
       "https://calebsmoot.wordpress.com/wp-content/uploads/2018/09/nikead.jpg",
   },
