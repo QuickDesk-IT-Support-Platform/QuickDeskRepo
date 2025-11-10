@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NewProductRouteImport } from './routes/new-product'
+import { Route as UserRouteRouteImport } from './routes/user/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TicketsMyTicketsRouteImport } from './routes/tickets/myTickets'
 import { Route as TicketsCreateTicketRouteImport } from './routes/tickets/createTicket'
@@ -18,6 +19,11 @@ import { Route as ServicesIndexServicesRouteImport } from './routes/services/ind
 const NewProductRoute = NewProductRouteImport.update({
   id: '/new-product',
   path: '/new-product',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserRouteRoute = UserRouteRouteImport.update({
+  id: '/user',
+  path: '/user',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +49,7 @@ const ServicesIndexServicesRoute = ServicesIndexServicesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/user'
     | '/new-product'
     | '/services/indexServices'
     | '/tickets/createTicket'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/user'
     | '/new-product'
     | '/services/indexServices'
     | '/tickets/createTicket'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/user'
     | '/new-product'
     | '/services/indexServices'
     | '/tickets/createTicket'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  UserRouteRoute: typeof UserRouteRoute
   NewProductRoute: typeof NewProductRoute
   ServicesIndexServicesRoute: typeof ServicesIndexServicesRoute
   TicketsCreateTicketRoute: typeof TicketsCreateTicketRoute
@@ -102,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/new-product'
       fullPath: '/new-product'
       preLoaderRoute: typeof NewProductRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  UserRouteRoute: UserRouteRoute,
   NewProductRoute: NewProductRoute,
   ServicesIndexServicesRoute: ServicesIndexServicesRoute,
   TicketsCreateTicketRoute: TicketsCreateTicketRoute,
