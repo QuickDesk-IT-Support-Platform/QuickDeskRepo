@@ -3,6 +3,7 @@ import { Carousel } from "@/components/ui/carousel"
 import { CarouselPartners } from "@/components/ui/carouselPartners"
 import { HeroSection } from "@/components/ui/heroSection"
 import { Footer } from "@/components/ui/footer"
+import { Navbar } from "@/components/navbar"
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -37,28 +38,31 @@ const carouselData = [
 
 function Home() {
   return (
-    <div className="flex flex-col items-center bg-gray-50 text-gray-800 justify-center pt-10">
-      {/* Carousel */}
-      <Carousel items={carouselData} />
+    <div>
+      <Navbar/>
+      <div className="flex flex-col items-center bg-gray-50 text-gray-800 justify-center pt-10">
+        {/* Carousel */}
+        <Carousel items={carouselData} />
 
-      {/* Linha separação */}
-      <div className="w-3/4 mt-20 border-t border-gray-400 shadow-[0_1px_5px_rgba(0,0,0,0.1)]" />
+        {/* Linha separação */}
+        <div className="w-3/4 mt-20 border-t border-gray-400 shadow-[0_1px_5px_rgba(0,0,0,0.1)]" />
 
-      {/* Secção “Partners” */}
-      <section className="mt-12 mb-24 text-center max-w-4xl">
-        <h2 className="text-3xl font-semibold text-gray-800">
-          Meet some of our <span className="text-sky-600 font-bold">partners</span>
-        </h2>
-        <p className="text-gray-600 mt-3 text-lg mb-10">
-          We’re proud to collaborate with global leaders in innovation and technology, building
-          solutions that drive progress and performance.
-        </p>
+        {/* Secção “Partners” */}
+        <section className="mt-12 mb-24 text-center max-w-4xl">
+          <h2 className="text-3xl font-semibold text-gray-800">
+            Meet some of our <span className="text-sky-600 font-bold">partners</span>
+          </h2>
+          <p className="text-gray-600 mt-3 text-lg mb-10">
+            We’re proud to collaborate with global leaders in innovation and technology, building
+            solutions that drive progress and performance.
+          </p>
 
-        {/* Carousel de parceiros */}
-        <CarouselPartners />
-        <HeroSection />
-      </section>
-      <Footer />
+          {/* Carousel de parceiros */}
+          <CarouselPartners />
+          <HeroSection />
+        </section>
+        <Footer />
+      </div>
     </div>
   )
 }
