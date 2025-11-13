@@ -12,43 +12,59 @@ jobs:
   sonarqube:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
+
     
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER_TESTS
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_TESTS
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB_TESTS
+        ports:
+          - 5432:5432
+        # Healthcheck para garantir que o banco subiu antes dos testes começarem
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
-          
-      # 2. Configurar o Ambiente Python
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+          fetch-depth: 0
+
+      # 2. Instalar o uv 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: '3.11' 
-      
-      # 3. Instalar Dependências (pytest-cov para gerar o relatório de cobertura)
-      - name: Install Python Dependencies
-        # Entra na pasta API para garantir que o pip e o poetry funcionam corretamente se forem usados.
+          enable-cache: true
+          cache-dependency-glob: "api/uv.lock"
+
+      # 3. Instalar Python e Dependências do projeto
+      - name: Install Python & Dependencies
+        working-directory: api
         run: |
-          python -m pip install --upgrade pip
-          # Instala as dependências do  projeto, incluindo pytest e pytest-cov
-          pip install pytest pytest-cov
-          # Se o seu projeto tiver um ficheiro requirements.txt na pasta 'api':
-          # pip install -r api/requirements.txt
-      
-      # 4. Executar Testes e Gerar Relatório de Cobertura
+          uv python install 3.12
+          uv sync --all-extras --dev
+
+      # 4. Rodar Testes
       - name: Run Tests and Generate Coverage Report
-        # O comando é executado a partir da raiz do repositório
+        working-directory: api
+        env:
+          POSTGRES_SERVER: localhost 
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER_TESTS }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_TESTS }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB_TESTS }}
         run: |
-          # Navega para a pasta 'api' onde o código e os testes residem
-          cd api
-          # Executa os testes usando pytest, gera o relatório de cobertura e guarda-o na raiz do repositório (../coverage.xml)
-          pytest --cov-report xml:../coverage.xml --cov=src # --cov=src aponta para a pasta do seu código fonte dentro de 'api'
-          
-      # 5. Executar o Sonar Scanner
-      # O scanner irá ler automaticamente:
-      # - O ficheiro sonar-project.properties (para a chave/organização)
-      # - O ficheiro coverage.xml (que foi gerado no passo 4)
+          uv run pytest --cov-report xml:../coverage.xml --cov=src
+
+      # 5. Enviar para o SonarCloud
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necessário para comentar PRs
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
