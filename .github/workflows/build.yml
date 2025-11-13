@@ -51,7 +51,7 @@ jobs:
           uv sync --all-extras --dev
 
       # 4. Rodar Testes
-      - name: Run Tests and Generate Coverage Report
+      - name: Run Tests and Generate Coverage Reports
         working-directory: api
         env:
           POSTGRES_SERVER: localhost 
