@@ -44,3 +44,6 @@ services:
 
 volumes:
   db_data:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
