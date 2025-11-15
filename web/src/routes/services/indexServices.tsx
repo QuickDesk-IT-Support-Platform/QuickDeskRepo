@@ -18,7 +18,7 @@ function ServicesPage() {
   const [path, setPath] = useState<{ id: string; name: string }[]>([])
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-orange-50 to-gray-100 flex flex-col items-center transition-all duration-500">
+    <main className="min-h-screen flex flex-col items-center transition-all duration-500">
       <section className="w-full text-center mt-12 mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">Services</h1>
         <p className="text-gray-500 text-lg">Select a service to request</p>

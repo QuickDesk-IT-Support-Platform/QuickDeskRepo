@@ -101,7 +101,9 @@ export function Navbar() {
 
                 <DropdownMenuContent align="end" className="w-48 bg-white text-slate-800 shadow-lg">
                   <DropdownMenuItem className="gap-2">
-                    <User className="h-4 w-4" /> Profile
+                    <Link to="/user/userProfile" className="flex w-full">
+                      <User className="h-4 w-4" /> Profile
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="gap-2">
                     <Settings className="h-4 w-4" /> Settings

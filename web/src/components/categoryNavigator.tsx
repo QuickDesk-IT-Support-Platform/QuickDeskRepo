@@ -85,7 +85,7 @@ export function CategoryNavigator({ path, setPath }) {
                   boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="group p-6 rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-xl transition-all cursor-pointer"
+                className="group p-6 rounded-xl border border-gray-200 bg-white shadow-2xl hover:shadow-xl transition-all cursor-pointer"
               >
                 <motion.div
                   className="flex justify-center mb-4"
