@@ -9,7 +9,6 @@ dependencies = [
     "psycopg[binary,pool]>=3.2.11",
     "sqlmodel>=0.0.27",
 ]
-
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
