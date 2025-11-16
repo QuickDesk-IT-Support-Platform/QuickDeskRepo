@@ -1,0 +1,2 @@
+# Ignorar todos os ficheiros .env em qualquer subpasta
+**/.env

@@ -1,0 +1,69 @@
+name: SonarCloud Python Analysis
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+
+    
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER_TESTS }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_TESTS }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB_TESTS }}
+        ports:
+          - 5432:5432
+        # Healthcheck para garantir que o banco subiu antes dos testes começarem
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Instalar o uv 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "api/uv.lock"
+
+      # 3. Instalar Python e Dependências do projeto
+      - name: Install Python & Dependencies
+        working-directory: api
+        run: |
+          uv python install 3.12
+          uv sync --all-extras --dev
+
+      # 4. Rodar Testes
+      - name: Run Tests and Generate Coverage Reports
+        working-directory: api
+        env:
+          POSTGRES_SERVER: localhost 
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER_TESTS }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_TESTS }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB_TESTS }}
+        run: |
+          uv run pytest --cov-report xml:../coverage.xml --cov=src
+
+      # 5. Enviar para o SonarCloud
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necessário para comentar PRs
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
