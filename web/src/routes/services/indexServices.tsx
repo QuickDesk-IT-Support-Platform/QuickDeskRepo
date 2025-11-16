@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 import { CategoryNavigator } from "@/components/categoryNavigator"
 import {
   Breadcrumb,

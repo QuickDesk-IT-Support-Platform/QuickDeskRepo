@@ -9,11 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as NewProductRouteImport } from './routes/new-product'
 import { Route as UserRouteRouteImport } from './routes/user/route'
 import { Route as TicketsRouteRouteImport } from './routes/tickets/route'
 import { Route as ServicesRouteRouteImport } from './routes/services/route'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
 import { Route as UserUserProfileRouteImport } from './routes/user/userProfile'
 import { Route as TicketsMyTicketsRouteImport } from './routes/tickets/myTickets'
@@ -22,11 +20,6 @@ import { Route as ServicesIndexServicesRouteImport } from './routes/services/ind
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 
-const NewProductRoute = NewProductRouteImport.update({
-  id: '/new-product',
-  path: '/new-product',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/user',
   path: '/user',
@@ -40,11 +33,6 @@ const TicketsRouteRoute = TicketsRouteRouteImport.update({
 const ServicesRouteRoute = ServicesRouteRouteImport.update({
   id: '/services',
   path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaffIndexRoute = StaffIndexRouteImport.update({
@@ -84,11 +72,9 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
   '/user': typeof UserRouteRouteWithChildren
-  '/new-product': typeof NewProductRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
@@ -98,11 +84,9 @@ export interface FileRoutesByFullPath {
   '/staff': typeof StaffIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
   '/user': typeof UserRouteRouteWithChildren
-  '/new-product': typeof NewProductRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
@@ -113,11 +97,9 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
   '/user': typeof UserRouteRouteWithChildren
-  '/new-product': typeof NewProductRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
@@ -129,11 +111,9 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/services'
     | '/tickets'
     | '/user'
-    | '/new-product'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
@@ -143,11 +123,9 @@ export interface FileRouteTypes {
     | '/staff'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/services'
     | '/tickets'
     | '/user'
-    | '/new-product'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
@@ -157,11 +135,9 @@ export interface FileRouteTypes {
     | '/staff'
   id:
     | '__root__'
-    | '/'
     | '/services'
     | '/tickets'
     | '/user'
-    | '/new-product'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
@@ -172,11 +148,9 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
   TicketsRouteRoute: typeof TicketsRouteRouteWithChildren
   UserRouteRoute: typeof UserRouteRouteWithChildren
-  NewProductRoute: typeof NewProductRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   StaffIndexRoute: typeof StaffIndexRoute
@@ -184,13 +158,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/new-product': {
-      id: '/new-product'
-      path: '/new-product'
-      fullPath: '/new-product'
-      preLoaderRoute: typeof NewProductRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/user': {
       id: '/user'
       path: '/user'
@@ -210,13 +177,6 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/staff/': {
@@ -310,11 +270,9 @@ const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   ServicesRouteRoute: ServicesRouteRouteWithChildren,
   TicketsRouteRoute: TicketsRouteRouteWithChildren,
   UserRouteRoute: UserRouteRouteWithChildren,
-  NewProductRoute: NewProductRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   StaffIndexRoute: StaffIndexRoute,

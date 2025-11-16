@@ -1,11 +1,23 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import userMock from '../../mock/user';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { RollerCoaster } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import useAuthStore from '@/Store/auth.store';
 export const Route = createFileRoute('/user/userProfile')({
+ beforeLoad:()=>{
+    const {isAuthenticated}=useAuthStore.getState();
+    if(!isAuthenticated){
+      throw redirect({
+        to:"/auth/login",
+        search:{
+          redirect:location.pathname
+        }
+      });
+    }
+ },
   component: UserProfilePage,
 })
 

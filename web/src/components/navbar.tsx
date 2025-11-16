@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { Link } from "@tanstack/react-router"
+import { Link ,useNavigate} from "@tanstack/react-router"
 import { Button } from "./ui/button"
-import { HomeIcon, Ticket, LogOut, Settings, User } from "lucide-react"
+import { HomeIcon, Ticket, LogOut, Settings, User, BusFrontIcon } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,11 +12,21 @@ import {
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { motion, AnimatePresence } from "framer-motion"
 import logo from "./ui/logo.png"
-
+import useAuthStore from "@/Store/auth.store"
 export function Navbar() {
   const [show, setShow] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-
+  const {setIsAuthenticated,setUser}=useAuthStore()
+  const navigate=useNavigate();
+  const handleLogOut=()=>{
+    // Implement your logout logic here
+    console.log("Logging out...");
+    setIsAuthenticated(false);
+    setUser(null);
+    navigate({
+      to:"/auth/login"
+    });
+  } 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -46,7 +56,7 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between w-full px-7 py-3 transition-all duration-300">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
+            <Link to="#" className="flex items-center space-x-2 group">
               <motion.img
                 src={logo}
                 alt="QuickDesk Logo"
@@ -58,12 +68,12 @@ export function Navbar() {
 
             {/* Links e Avatar */}
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
+              {/* <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
                 <Link to="/" className="[&.active]:bg-white/15 [&.active]:text-white">
                   <HomeIcon className="h-4 w-4 mr-2" />
                   Home
                 </Link>
-              </Button>
+              </Button> */}
 
               <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
                 <Link to="/services/indexServices" className="[&.active]:bg-white/15 [&.active]:text-white">
@@ -109,8 +119,13 @@ export function Navbar() {
                     <Settings className="h-4 w-4" /> Settings
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-red-600 gap-2">
-                    <LogOut className="h-4 w-4" /> Logout
+                  <DropdownMenuItem className="text-red-600">
+                    <button className="flex w-full flex-row gap-2 items-center hover:cursor-pointer"
+                      onClick={()=>handleLogOut()}
+                    >
+                     <LogOut className="h-4 w-4"/> Logout
+
+                    </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

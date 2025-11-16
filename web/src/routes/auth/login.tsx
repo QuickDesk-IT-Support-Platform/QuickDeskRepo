@@ -1,10 +1,12 @@
 import { Card } from '@/components/ui/card'
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import {  useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Link } from '@tanstack/react-router'
 import quickdeskLogo from '../../assets/quickdesk-icon1.png'
+import useAuthStore from '@/Store/auth.store';
+import { useEffect } from 'react'
 export const Route = createFileRoute('/auth/login')({
   component: LoguinPage,
 })
@@ -14,6 +16,8 @@ interface LoguinForm {
     password:string;
 }
 function LoguinPage() {
+  const navigate = useNavigate();
+  const {isAuthenticated,setIsAuthenticated}=useAuthStore();
   const [form, setForm] = useState<LoguinForm>({
     email: '',
     password: '',
@@ -25,8 +29,21 @@ function LoguinPage() {
     }
     //To do validate email format 
     console.log('Form submitted:', form);
+    setIsAuthenticated(true);
   }
   
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      alert("User already authenticated. Redirecting to home page.");
+      navigate(
+        {
+          to:"/services/indexServices",
+         
+        }
+      );
+    }
+  },[isAuthenticated])
   return(
     <div className='flex flex-col bg-background w-screen h-screen  items-center justify-center'>
     
