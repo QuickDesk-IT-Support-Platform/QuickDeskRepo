@@ -25,23 +25,22 @@ services:
       - "80:80"
     depends_on:
       - db
+
   web-dev:
     build:
       context: ../web
       dockerfile: Dockerfile.dev
     working_dir: /app
     ports:
-      - "5173:5173"    
+      - "5173:5173"
     volumes:
-      - ../web:/app:cached    # Monta o código local → hot reload
-      - /app/node_modules  # Evita conflitos de dependências
-
+      - ../web:/app:cached          # Código local montado → hot reload
+      - /app/node_modules           # Evita sobrescrever dependências
     environment:
       NODE_ENV: development
-      # Use polling if needed (uncomment or set in your env) e.g. CHOKIDAR_USEPOLLING: "true"
     depends_on:
       - api
-    command: ["npm","run","dev","--","--host","0.0.0.0"]
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 volumes:
   db_data:

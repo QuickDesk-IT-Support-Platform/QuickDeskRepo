@@ -10,11 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NewProductRouteImport } from './routes/new-product'
+import { Route as UserRouteRouteImport } from './routes/user/route'
+import { Route as TicketsRouteRouteImport } from './routes/tickets/route'
+import { Route as ServicesRouteRouteImport } from './routes/services/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StaffIndexRouteImport } from './routes/staff/index'
+import { Route as TicketsMyTicketsRouteImport } from './routes/tickets/myTickets'
+import { Route as TicketsCreateTicketRouteImport } from './routes/tickets/createTicket'
+import { Route as ServicesIndexServicesRouteImport } from './routes/services/indexServices'
 
 const NewProductRoute = NewProductRouteImport.update({
   id: '/new-product',
   path: '/new-product',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserRouteRoute = UserRouteRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TicketsRouteRoute = TicketsRouteRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRouteRoute = ServicesRouteRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -22,31 +44,104 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaffIndexRoute = StaffIndexRouteImport.update({
+  id: '/staff/',
+  path: '/staff/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TicketsMyTicketsRoute = TicketsMyTicketsRouteImport.update({
+  id: '/myTickets',
+  path: '/myTickets',
+  getParentRoute: () => TicketsRouteRoute,
+} as any)
+const TicketsCreateTicketRoute = TicketsCreateTicketRouteImport.update({
+  id: '/createTicket',
+  path: '/createTicket',
+  getParentRoute: () => TicketsRouteRoute,
+} as any)
+const ServicesIndexServicesRoute = ServicesIndexServicesRouteImport.update({
+  id: '/indexServices',
+  path: '/indexServices',
+  getParentRoute: () => ServicesRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/tickets': typeof TicketsRouteRouteWithChildren
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
+  '/services/indexServices': typeof ServicesIndexServicesRoute
+  '/tickets/createTicket': typeof TicketsCreateTicketRoute
+  '/tickets/myTickets': typeof TicketsMyTicketsRoute
+  '/staff': typeof StaffIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/tickets': typeof TicketsRouteRouteWithChildren
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
+  '/services/indexServices': typeof ServicesIndexServicesRoute
+  '/tickets/createTicket': typeof TicketsCreateTicketRoute
+  '/tickets/myTickets': typeof TicketsMyTicketsRoute
+  '/staff': typeof StaffIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/tickets': typeof TicketsRouteRouteWithChildren
+  '/user': typeof UserRouteRoute
   '/new-product': typeof NewProductRoute
+  '/services/indexServices': typeof ServicesIndexServicesRoute
+  '/tickets/createTicket': typeof TicketsCreateTicketRoute
+  '/tickets/myTickets': typeof TicketsMyTicketsRoute
+  '/staff/': typeof StaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/new-product'
+  fullPaths:
+    | '/'
+    | '/services'
+    | '/tickets'
+    | '/user'
+    | '/new-product'
+    | '/services/indexServices'
+    | '/tickets/createTicket'
+    | '/tickets/myTickets'
+    | '/staff'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/new-product'
-  id: '__root__' | '/' | '/new-product'
+  to:
+    | '/'
+    | '/services'
+    | '/tickets'
+    | '/user'
+    | '/new-product'
+    | '/services/indexServices'
+    | '/tickets/createTicket'
+    | '/tickets/myTickets'
+    | '/staff'
+  id:
+    | '__root__'
+    | '/'
+    | '/services'
+    | '/tickets'
+    | '/user'
+    | '/new-product'
+    | '/services/indexServices'
+    | '/tickets/createTicket'
+    | '/tickets/myTickets'
+    | '/staff/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
+  TicketsRouteRoute: typeof TicketsRouteRouteWithChildren
+  UserRouteRoute: typeof UserRouteRoute
   NewProductRoute: typeof NewProductRoute
+  StaffIndexRoute: typeof StaffIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +153,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewProductRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tickets': {
+      id: '/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TicketsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,12 +181,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/staff/': {
+      id: '/staff/'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tickets/myTickets': {
+      id: '/tickets/myTickets'
+      path: '/myTickets'
+      fullPath: '/tickets/myTickets'
+      preLoaderRoute: typeof TicketsMyTicketsRouteImport
+      parentRoute: typeof TicketsRouteRoute
+    }
+    '/tickets/createTicket': {
+      id: '/tickets/createTicket'
+      path: '/createTicket'
+      fullPath: '/tickets/createTicket'
+      preLoaderRoute: typeof TicketsCreateTicketRouteImport
+      parentRoute: typeof TicketsRouteRoute
+    }
+    '/services/indexServices': {
+      id: '/services/indexServices'
+      path: '/indexServices'
+      fullPath: '/services/indexServices'
+      preLoaderRoute: typeof ServicesIndexServicesRouteImport
+      parentRoute: typeof ServicesRouteRoute
+    }
   }
 }
 
+interface ServicesRouteRouteChildren {
+  ServicesIndexServicesRoute: typeof ServicesIndexServicesRoute
+}
+
+const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
+  ServicesIndexServicesRoute: ServicesIndexServicesRoute,
+}
+
+const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
+  ServicesRouteRouteChildren,
+)
+
+interface TicketsRouteRouteChildren {
+  TicketsCreateTicketRoute: typeof TicketsCreateTicketRoute
+  TicketsMyTicketsRoute: typeof TicketsMyTicketsRoute
+}
+
+const TicketsRouteRouteChildren: TicketsRouteRouteChildren = {
+  TicketsCreateTicketRoute: TicketsCreateTicketRoute,
+  TicketsMyTicketsRoute: TicketsMyTicketsRoute,
+}
+
+const TicketsRouteRouteWithChildren = TicketsRouteRoute._addFileChildren(
+  TicketsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ServicesRouteRoute: ServicesRouteRouteWithChildren,
+  TicketsRouteRoute: TicketsRouteRouteWithChildren,
+  UserRouteRoute: UserRouteRoute,
   NewProductRoute: NewProductRoute,
+  StaffIndexRoute: StaffIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
