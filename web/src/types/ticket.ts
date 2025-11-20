@@ -1,19 +1,17 @@
-export interface Ticket {
-  id: string
-  organization_id: string
-  service_id: string
-  form_id: string
-  form_submission_id: string
-  user_id: string
-  assigned_to: string | null
-  ticket_status: "Pending" | "Success" | "Failed" | "Processing"
-  ticket_priority: "Low" | "Medium" | "High" | "Critical"
-  sla_id: string
-  category_id: string
+export default interface Ticket {
+  id: number
+  organization_id: number
+  service_id: number
+  form_id: number
+  form_submission_id: number
+  user_id: number
+  assigned_to: number | null
+  ticket_status: string
+  ticket_priority: string
+  sla_id: number | null
+  category_id: number
   description: string
   created_at: string
   updated_at: string
   closed_at: string | null
-  amount: number // adicionado para a tua coluna Amount
-  email: string  // útil para sorting/filtragem
 }
