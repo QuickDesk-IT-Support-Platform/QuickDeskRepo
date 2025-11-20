@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <div className="w-full">
       <div className="rounded-md border overflow-hidden">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-orange-200">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -105,7 +105,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
         <div className="space-x-2">
           <button
-            className="border px-3 py-1 rounded"
+            className="border px-3 py-1 rounded bg-orange-200"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -113,7 +113,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </button>
 
           <button
-            className="border px-3 py-1 rounded"
+            className="border px-3 py-1 rounded bg-orange-200"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
