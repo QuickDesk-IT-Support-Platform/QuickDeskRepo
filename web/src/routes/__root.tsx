@@ -1,16 +1,16 @@
 // import { Navbar } from '@/components/navbar'
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import useAuthStore from '@/Store/auth.store';
+// import useAuthStore from '@/Store/auth.store';
 import NotFoundPage from '@/components/NotFoundPage';
 // import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-interface userData{
-    name:string;
-    email:string;
-    contact:string;
-    profile_picture_link:string;
-    role:string;
-    isAuthenticated:boolean;
-}
+// interface userData{
+//     name:string;
+//     email:string;
+//     contact:string;
+//     profile_picture_link:string;
+//     role:string;
+//     isAuthenticated:boolean;
+// }
 // const mockUser:userData={
 //     name:"Airton Silva",
 //     email:"airton@example.com",
@@ -33,7 +33,7 @@ interface userData{
 const RootLayout = () => (
     
 
-  <div className='min-h-screen bg-gradient-to-br from-orange-50 to-gray-100 flex flex-col'>
+  <div className='min-h-screen bg-gradient-to-br from-orange-50 to-gray-100  flex flex-col'>
     <Outlet />
     {/* <TanStackRouterDevtools /> */}
   </div>

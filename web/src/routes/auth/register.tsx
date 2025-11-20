@@ -49,7 +49,7 @@ function RegisterPage() {
 
 
 return (
-   <div className='flex flex-col bg-background w-screen h-screen  items-center justify-center'>
+   <div className='flex flex-col  w-screen h-screen  items-center justify-center'>
     
 
 

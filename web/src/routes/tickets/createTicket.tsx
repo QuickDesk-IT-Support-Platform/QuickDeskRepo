@@ -58,7 +58,7 @@ function CreateTicketPage() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-6">
+    <div className="min-h-screen  flex justify-center items-start py-12 px-6">
       <div className="flex flex-col md:flex-row gap-12 w-full max-w-6xl">
         {/* --- Esquerda: Categoria --- */}
         <motion.div

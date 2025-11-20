@@ -9,22 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UserRouteRouteImport } from './routes/user/route'
 import { Route as TicketsRouteRouteImport } from './routes/tickets/route'
 import { Route as ServicesRouteRouteImport } from './routes/services/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
-import { Route as UserUserProfileRouteImport } from './routes/user/userProfile'
 import { Route as TicketsMyTicketsRouteImport } from './routes/tickets/myTickets'
 import { Route as TicketsCreateTicketRouteImport } from './routes/tickets/createTicket'
 import { Route as ServicesIndexServicesRouteImport } from './routes/services/indexServices'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AccountSettingsRouteImport } from './routes/account/settings'
 
-const UserRouteRoute = UserRouteRouteImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TicketsRouteRoute = TicketsRouteRouteImport.update({
   id: '/tickets',
   path: '/tickets',
@@ -35,15 +30,15 @@ const ServicesRouteRoute = ServicesRouteRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StaffIndexRoute = StaffIndexRouteImport.update({
   id: '/staff/',
   path: '/staff/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const UserUserProfileRoute = UserUserProfileRouteImport.update({
-  id: '/userProfile',
-  path: '/userProfile',
-  getParentRoute: () => UserRouteRoute,
 } as any)
 const TicketsMyTicketsRoute = TicketsMyTicketsRouteImport.update({
   id: '/myTickets',
@@ -70,87 +65,93 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountSettingsRoute = AccountSettingsRouteImport.update({
+  id: '/account/settings',
+  path: '/account/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
-  '/user': typeof UserRouteRouteWithChildren
+  '/account/settings': typeof AccountSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
   '/tickets/myTickets': typeof TicketsMyTicketsRoute
-  '/user/userProfile': typeof UserUserProfileRoute
   '/staff': typeof StaffIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
-  '/user': typeof UserRouteRouteWithChildren
+  '/account/settings': typeof AccountSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
   '/tickets/myTickets': typeof TicketsMyTicketsRoute
-  '/user/userProfile': typeof UserUserProfileRoute
   '/staff': typeof StaffIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/tickets': typeof TicketsRouteRouteWithChildren
-  '/user': typeof UserRouteRouteWithChildren
+  '/account/settings': typeof AccountSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/services/indexServices': typeof ServicesIndexServicesRoute
   '/tickets/createTicket': typeof TicketsCreateTicketRoute
   '/tickets/myTickets': typeof TicketsMyTicketsRoute
-  '/user/userProfile': typeof UserUserProfileRoute
   '/staff/': typeof StaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/services'
     | '/tickets'
-    | '/user'
+    | '/account/settings'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
     | '/tickets/createTicket'
     | '/tickets/myTickets'
-    | '/user/userProfile'
     | '/staff'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/services'
     | '/tickets'
-    | '/user'
+    | '/account/settings'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
     | '/tickets/createTicket'
     | '/tickets/myTickets'
-    | '/user/userProfile'
     | '/staff'
   id:
     | '__root__'
+    | '/'
     | '/services'
     | '/tickets'
-    | '/user'
+    | '/account/settings'
     | '/auth/login'
     | '/auth/register'
     | '/services/indexServices'
     | '/tickets/createTicket'
     | '/tickets/myTickets'
-    | '/user/userProfile'
     | '/staff/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
   TicketsRouteRoute: typeof TicketsRouteRouteWithChildren
-  UserRouteRoute: typeof UserRouteRouteWithChildren
+  AccountSettingsRoute: typeof AccountSettingsRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   StaffIndexRoute: typeof StaffIndexRoute
@@ -158,13 +159,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/user': {
-      id: '/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof UserRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tickets': {
       id: '/tickets'
       path: '/tickets'
@@ -179,19 +173,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/staff/': {
       id: '/staff/'
       path: '/staff'
       fullPath: '/staff'
       preLoaderRoute: typeof StaffIndexRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/user/userProfile': {
-      id: '/user/userProfile'
-      path: '/userProfile'
-      fullPath: '/user/userProfile'
-      preLoaderRoute: typeof UserUserProfileRouteImport
-      parentRoute: typeof UserRouteRoute
     }
     '/tickets/myTickets': {
       id: '/tickets/myTickets'
@@ -228,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/settings': {
+      id: '/account/settings'
+      path: '/account/settings'
+      fullPath: '/account/settings'
+      preLoaderRoute: typeof AccountSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -257,22 +258,11 @@ const TicketsRouteRouteWithChildren = TicketsRouteRoute._addFileChildren(
   TicketsRouteRouteChildren,
 )
 
-interface UserRouteRouteChildren {
-  UserUserProfileRoute: typeof UserUserProfileRoute
-}
-
-const UserRouteRouteChildren: UserRouteRouteChildren = {
-  UserUserProfileRoute: UserUserProfileRoute,
-}
-
-const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
-  UserRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   ServicesRouteRoute: ServicesRouteRouteWithChildren,
   TicketsRouteRoute: TicketsRouteRouteWithChildren,
-  UserRouteRoute: UserRouteRouteWithChildren,
+  AccountSettingsRoute: AccountSettingsRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   StaffIndexRoute: StaffIndexRoute,

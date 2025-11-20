@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link ,useNavigate} from "@tanstack/react-router"
 import { Button } from "./ui/button"
-import { HomeIcon, Ticket, LogOut, Settings, User, BusFrontIcon } from "lucide-react"
+import { Ticket, LogOut, Settings,  } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -56,11 +56,11 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between w-full px-7 py-3 transition-all duration-300">
             {/* Logo */}
-            <Link to="#" className="flex items-center space-x-2 group">
+            <Link to="/" className="flex items-center space-x-2 group">
               <motion.img
                 src={logo}
                 alt="QuickDesk Logo"
-                className="h-15 ml-23 scale-400 w-auto object-contain transform transition-transform duration-200 group-hover:scale-360"
+                className="h-15 ml-23 scale-300 w-auto object-contain transform transition-transform duration-200 group-hover:scale-360"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 250 }}
               />
@@ -109,16 +109,18 @@ export function Navbar() {
                   </button>
                 </DropdownMenuTrigger>
 
-                <DropdownMenuContent align="end" className="w-48 bg-white text-slate-800 shadow-lg">
-                  <DropdownMenuItem className="gap-2">
-                    <Link to="/user/userProfile" className="flex w-full">
-                      <User className="h-4 w-4" /> Profile
+                <DropdownMenuContent align="end" className="w-50 bg-white text-slate-800 shadow-lg">
+                  
+                  <DropdownMenuItem className="flex flex-row justify-around items-center hover:cursor-pointer">
+                    <Link to="/account/settings" className="flex w-full items-center  gap-2">
+                        <Settings className="h-4 w-4" /> Settings
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="gap-2">
-                    <Settings className="h-4 w-4" /> Settings
-                  </DropdownMenuItem>
+                  
+                  
                   <DropdownMenuSeparator />
+
+
                   <DropdownMenuItem className="text-red-600">
                     <button className="flex w-full flex-row gap-2 items-center hover:cursor-pointer"
                       onClick={()=>handleLogOut()}
