@@ -58,7 +58,7 @@ function SettingsPage() {
             className={`justify-start cursor-pointer items-center`}
             onClick={() => setActiveTab("account")}
             >
-            <User className="mr-2"/>
+            <User className="mr-2 text-chart-1"/>
                 Account
           </Button>
 
@@ -69,7 +69,7 @@ function SettingsPage() {
             className="justify-start cursor-pointer items-center"
             onClick={() => setActiveTab("notifications")}
           >
-            <Bell className="mr-2"/>
+            <Bell className="mr-2 text-chart-1"/>
             Notifications
           </Button>
           <Button 
@@ -77,7 +77,7 @@ function SettingsPage() {
             className="justify-start cursor-pointer items-center"
             onClick={() => setActiveTab("appearance")}
           >
-            <Palette className="mr-2"/>
+            <Palette className="mr-2 text-chart-1"/>
             Appearance
           </Button>
           
@@ -86,7 +86,7 @@ function SettingsPage() {
             className="justify-start cursor-pointer items-center"
             onClick={() => setActiveTab("settings")}
           >
-            <Settings className="mr-2"/>
+            <Settings className="mr-2 text-chart-1"/>
             Settings
           </Button>
         </nav>

@@ -36,14 +36,14 @@ export default function Notifications() {
   }, [emailEnabled, pushEnabled, ticketResolvedEnabled, ticketUpdatesEnabled])
   
   return (
-    <div>
+    <div >
         <span className='font-extralight'>Manage how you receive notifications and updates</span>
         <Card className="mt-6 p-6 bg-card max-w-4xl">
           <CardTitle className='flex flex-row items-center gap-1 text-lg font-semibold'>
               <Bell  className='text-chart-1'/>
             Notification Channels
           </CardTitle>
-          <CardContent className='flex flex-col gap-6 mt-4'>
+          <div className='flex flex-col gap-6 mt-4'>
             <div className='flex flex-row items-center justify-between'>
               <div className='flex flex-col items-start '>
                 <span className='font-medium'>
@@ -77,7 +77,7 @@ export default function Notifications() {
             
             </div>
             
-          </CardContent>
+          </div>
 
         </Card>
 
@@ -86,7 +86,7 @@ export default function Notifications() {
               <Ticket  className='text-chart-1'/>
             Ticket Notifications
           </CardTitle>
-          <CardContent className='flex flex-col gap-6 mt-4'>
+          <div className='flex flex-col gap-6 mt-4'>
             <div className='flex flex-row items-center justify-between'>
               <div className='flex flex-col items-start '>
                 <span className='font-medium'>
@@ -120,7 +120,7 @@ export default function Notifications() {
                           
             </div>
             
-          </CardContent>
+          </div>
 
         </Card>
       
