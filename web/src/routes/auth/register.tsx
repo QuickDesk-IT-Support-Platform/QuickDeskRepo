@@ -49,12 +49,12 @@ function RegisterPage() {
 
 
 return (
-   <div className='flex flex-col  w-screen h-screen  items-center justify-center'>
+   <div className='flex flex-col  w-screen h-screen  items-center justify-center bg-white'>
     
 
 
 
-      <Card className='flex flex-col items-center justify-center px-20 gap-4 shadow-2xl rounded-2xl py-10 bg-card'>
+      <Card className='flex flex-col items-center justify-center md:px-20 gap-4 shadow-2xl rounded-2xl md:py-10 bg-card p-2 '>
         <img src={quickdeskLogo} alt="QuickDesk Logo" className='max-w-sm mb-4'/>
         
           <span className='text-2xl text-chart-1 font-bold font-serif'>Register </span>

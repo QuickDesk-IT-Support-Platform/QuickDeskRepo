@@ -40,6 +40,7 @@ function Home() {
   return (
     <div>
       <Navbar/>
+      <div className="h-20"></div>
       <div className="flex flex-col items-center justify-center pt-10">
         {/* Carousel */}
         <Carousel items={carouselData} />

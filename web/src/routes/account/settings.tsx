@@ -44,6 +44,7 @@ function SettingsPage() {
   return (
     <>
       <Navbar />
+      <div className="h-20"></div>
       <div className="flex flex-col md:flex-row min-h-screen w-full gap-6 p-6">
       
       {/* Sidebar de Navegação */}
@@ -91,7 +92,7 @@ function SettingsPage() {
         </nav>
       </aside>
 
-      <main className="flex-1 border-l-1  p-6 ">
+      <main className="flex-1 border-t-1 md:border-l-1 md:border-t-0 md:p-6  pt-3 md:pt-0 ">
         {renderContent()}
       </main>
     </div>

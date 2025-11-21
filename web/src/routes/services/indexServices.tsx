@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { createFileRoute, redirect } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { CategoryNavigator } from "@/components/categoryNavigator"
 import {
   Breadcrumb,
@@ -18,15 +18,15 @@ function ServicesPage() {
   const [path, setPath] = useState<{ id: string; name: string }[]>([])
 
   return (
-    <main className="min-h-screen flex flex-col items-center transition-all duration-500">
-      <section className="w-full text-center mt-12 mb-8">
+    <main className="min-h-screen flex flex-col items-center transition-all duration-500  ">
+      <section className="w-full text-center mt-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">Services</h1>
         <p className="text-gray-500 text-lg">Select a service to request</p>
       </section>
 
-      <section className="w-full max-w-6xl px-6">
+      <section className="w-full max-w-6xl -mt-15 md:mt-0 ">
         
-        <Breadcrumb className="flex items-center p-2">
+        <Breadcrumb className="flex items-center ">
           <BreadcrumbList>
             {path.length != 0 &&
             <BreadcrumbItem className="text-white flex items-center h-12 rounded-full px-4 py-2">

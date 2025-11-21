@@ -33,7 +33,7 @@ import NotFoundPage from '@/components/NotFoundPage';
 const RootLayout = () => (
     
 
-  <div className='min-h-screen bg-gradient-to-br from-orange-50 to-gray-100  flex flex-col'>
+  <div className='min-h-screen bg-gradient-to-br from-orange-50 to-gray-100'>
     <Outlet />
     {/* <TanStackRouterDevtools /> */}
   </div>

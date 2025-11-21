@@ -44,6 +44,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [lastScrollY])
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <AnimatePresence>
       {show && (
@@ -52,7 +53,7 @@ export function Navbar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -80, opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="top-0 left-0 w-full z-50 bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg backdrop-blur-sm"
+          className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg backdrop-blur-sm"
         >
           <div className="flex items-center justify-between w-full px-7 py-3 transition-all duration-300">
             {/* Logo */}
@@ -66,30 +67,20 @@ export function Navbar() {
               />
             </Link>
 
-            {/* Links e Avatar */}
-            <div className="flex items-center gap-4">
-              {/* <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
-                <Link to="/" className="[&.active]:bg-white/15 [&.active]:text-white">
-                  <HomeIcon className="h-4 w-4 mr-2" />
-                  Home
-                </Link>
-              </Button> */}
-
+            {/* Desktop Menu */}
+            <div className="hidden md:flex flex-col md:flex-row md:items-center md:gap-4">
               <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
                 <Link to="/services/indexServices" className="[&.active]:bg-white/15 [&.active]:text-white">
                   <Ticket className="h-4 w-4 mr-2" />
                   Services
                 </Link>
               </Button>
-
               <Button variant="ghost" size="lg" className="text-white/90 hover:text-white" asChild>
                 <Link to="/tickets/myTickets" className="[&.active]:bg-white/15 [&.active]:text-white">
                   <Ticket className="h-4 w-4 mr-2" />
                   My Tickets
                 </Link>
               </Button>
-
-              {/* Avatar dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="focus:outline-none">
@@ -108,31 +99,75 @@ export function Navbar() {
                     </motion.div>
                   </button>
                 </DropdownMenuTrigger>
-
                 <DropdownMenuContent align="end" className="w-50 bg-white text-slate-800 shadow-lg">
-                  
                   <DropdownMenuItem className="flex flex-row justify-around items-center hover:cursor-pointer">
                     <Link to="/account/settings" className="flex w-full items-center  gap-2">
                         <Settings className="h-4 w-4" /> Settings
                     </Link>
                   </DropdownMenuItem>
-                  
-                  
                   <DropdownMenuSeparator />
-
-
                   <DropdownMenuItem className="text-red-600">
                     <button className="flex w-full flex-row gap-2 items-center hover:cursor-pointer"
                       onClick={()=>handleLogOut()}
                     >
                      <LogOut className="h-4 w-4"/> Logout
-
                     </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <button
+                className="focus:outline-none"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Abrir menu"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ y: -40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -40, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden absolute top-full left-0 w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg z-50"
+              >
+                <div className="flex flex-col gap-2 px-7 py-4">
+                  <Button variant="ghost" size="lg" className="text-white/90 hover:text-white w-full justify-start" asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/services/indexServices" className="[&.active]:bg-white/15 [&.active]:text-white">
+                      <Ticket className="h-4 w-4 mr-2" />
+                      Services
+                    </Link>
+                  </Button>
+                  <Button variant="ghost" size="lg" className="text-white/90 hover:text-white w-full justify-start" asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/tickets/myTickets" className="[&.active]:bg-white/15 [&.active]:text-white">
+                      <Ticket className="h-4 w-4 mr-2" />
+                      My Tickets
+                    </Link>
+                  </Button>
+                  <Button variant="ghost" size="lg" className="text-white/90 hover:text-white w-full justify-start" asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/account/settings" className="flex w-full items-center gap-2">
+                      <Settings className="h-4 w-4" /> Settings
+                    </Link>
+                  </Button>
+                  <Button variant="ghost" size="lg" className="text-black font-extrabold hover:text-red-700 w-full justify-start" onClick={() => { handleLogOut(); setMobileMenuOpen(false); }}>
+                    <LogOut className="h-4 w-4 mr-2 text-white" /> Logout
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.nav>
       )}
     </AnimatePresence>

@@ -23,6 +23,7 @@ function Index() {
   return (
     <div>
       <Navbar></Navbar>
+      <div className="h-20"></div>
       <Outlet></Outlet>
     </div>
   )
