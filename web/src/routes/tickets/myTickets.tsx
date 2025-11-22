@@ -19,7 +19,7 @@ function MyTicketsPage() {
 
         <Link
           to="/services/indexServices"
-          className="rounded-xl bg-orange-200 hover:bg-orange-300 border px-4 py-2 text-sm font-medium"
+          className="rounded-xl text-white bg-orange-600 hover:bg-orange-700 border px-4 py-2 text-sm font-medium"
         >
           + New Ticket
         </Link>

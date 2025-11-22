@@ -77,96 +77,94 @@ export function UserTicketChart() {
       : aggregateTicketsSmart("7")
 
   return (
-    <Card className="bg-[#1a1a1a] border border-neutral-800 text-white mt-8 rounded-2xl shadow-xl overflow-hidden">
-      <CardHeader className="pb-6">
+    <Card className="bg-orange-400 border-neutral-300 text-white mt-8 rounded-xl shadow-lg">
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="text-xl font-semibold text-white">
               My Ticket Activity
             </CardTitle>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm font-bold text-neutral-800">
               Tickets created over time
             </p>
           </div>
 
           {/* Period selector */}
           <div className="flex gap-2">
-            {[
-              { value: "90", label: "Last 3 months" },
-              { value: "30", label: "Last 30 days" },
-              { value: "7", label: "Last 7 days" },
-            ].map((opt) => (
-              <Button
-                key={opt.value}
-                onClick={() => setRange(opt.value as any)}
-                className={`px-3 py-1 rounded-md transition-all ${
-                  range === opt.value
-                    ? "bg-orange-500/80 hover:bg-orange-500 text-white"
-                    : "bg-neutral-800 hover:bg-neutral-700 text-neutral-300"
-                }`}
-              >
-                {opt.label}
-              </Button>
-            ))}
+            <Button
+              variant={range === "90" ? "default" : "outline"}
+              onClick={() => setRange("90")}
+              className={`px-3 py-1 rounded-md ${
+                range === "90"
+                  ? "bg-orange-600 text-white"
+                  : "bg-orange-500 text-neutral-300"
+              }`}
+            >
+              Last 3 months
+            </Button>
+
+            <Button
+              variant={range === "30" ? "default" : "outline"}
+              onClick={() => setRange("30")}
+              className={`px-3 py-1 rounded-md ${
+                range === "30"
+                  ? "bg-orange-600 text-white"
+                  : "bg-orange-500 text-neutral-300"
+              }`}
+            >
+              Last 30 days
+            </Button>
+
+            <Button
+              variant={range === "7" ? "default" : "outline"}
+              onClick={() => setRange("7")}
+              className={`px-3 py-1 rounded-md ${
+                range === "7"
+                  ? "bg-orange-600 text-white"
+                  : "bg-orange-500 text-neutral-300"
+              }`}
+            >
+              Last 7 days
+            </Button>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="h-[350px] px-2 pb-4">
+      <CardContent className="h-[320px]">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={data}
-            margin={{ left: 20, right: 20, top: 10, bottom: 0 }}
-          >
-            {/* smooth orange gradient */}
+          <AreaChart data={data} margin={{ left: 10, right: 20 }}>
+            {/* smooth gradient like shadcn */}
             <defs>
-              <linearGradient id="orangeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="10%" stopColor="#ffa94d" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#ffa94d" stopOpacity={0.05} />
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#e00d0dff" stopOpacity={0.5} />
+                <stop offset="95%" stopColor="#a01d1dff" stopOpacity={0.03} />
               </linearGradient>
             </defs>
 
             {/* X / Y Axes */}
-            <XAxis
-              dataKey="date"
-              tick={{ fill: "#e2e2e2", fontSize: 12 }}
-              axisLine={{ stroke: "#555" }}
-              tickLine={{ stroke: "#555" }}
-            />
-            <YAxis
-              tick={{ fill: "#e2e2e2", fontSize: 12 }}
-              axisLine={{ stroke: "#555" }}
-              tickLine={{ stroke: "#555" }}
-            />
+            <XAxis dataKey="date" tick={{ fill: "#000000ff", fontSize: 12 }} />
+            <YAxis tick={{ fill: "#000000ff", fontSize: 12 }} />
 
             {/* Tooltip */}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               contentStyle={{
-                background: "rgba(20,20,20,0.85)",
-                border: "1px solid #444",
-                borderRadius: "10px",
+                background: "#161616",
+                border: "1px solid #333",
+                borderRadius: "8px",
                 color: "#fff",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
               }}
             />
 
-            {/* BEAUTIFUL ORANGE AREA */}
+            {/* Area */}
             <Area
               type="monotone"
               dataKey="tickets"
-              stroke="#ffa94d"
-              strokeWidth={3}
-              fill="url(#orangeGradient)"
+              stroke="#ffffff"
+              strokeWidth={2}
+              fill="url(#chartGradient)"
               dot={false}
-              activeDot={{
-                r: 6,
-                stroke: "#fff",
-                strokeWidth: 2,
-                fill: "#ffa94d",
-              }}
-              animationDuration={900}
-              animationEasing="ease-in-out"
+              activeDot={{ r: 4, stroke: "#fff", strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>

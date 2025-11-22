@@ -25,7 +25,7 @@ export function UserTicketStats() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       
       {/* CARD: Tickets Criados */}
-      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-700 text-white">
+      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-300 text-white">
         <CardHeader>
           <CardTitle>Total Tickets</CardTitle>
         </CardHeader>
@@ -39,7 +39,7 @@ export function UserTicketStats() {
       </Card>
 
       {/* CARD: Resolvidos */}
-      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-700 text-white">
+      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-300 text-white">
         <CardHeader>
           <CardTitle>Resolved Tickets</CardTitle>
         </CardHeader>
@@ -53,7 +53,7 @@ export function UserTicketStats() {
       </Card>
 
       {/* CARD: Pendentes */}
-      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-700 text-white">
+      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-300 text-white">
         <CardHeader>
           <CardTitle>Open Tickets</CardTitle>
         </CardHeader>
@@ -67,7 +67,7 @@ export function UserTicketStats() {
       </Card>
 
       {/* CARD: Taxa de Resolução */}
-      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-700 text-white">
+      <Card className="bg-linear-to-r from-orange-500 to-orange-300 border-neutral-300 text-white">
         <CardHeader>
           <CardTitle>Completion Rate</CardTitle>
         </CardHeader>
