@@ -1,9 +1,10 @@
-// src/routes/tickets/myTickets.tsx
-import React from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { DataTable } from "@/components/ui/data-table"
 import { ticketColumns } from "@/components/ui/ticket-columns"
 import { mockTickets } from "@/mock/ticketMock"
+import { UserTicketStats } from "@/components/ui/userstats-card"
+import { UserTicketChart } from "@/components/ui/ticketChart"
+
 
 export const Route = createFileRoute("/tickets/myTickets")({
   component: MyTicketsPage,
@@ -23,7 +24,8 @@ function MyTicketsPage() {
           + New Ticket
         </Link>
       </div>
-
+      <UserTicketStats />
+      <UserTicketChart />
       {/* Tabela com toolbar e dropdown já incluídos */}
       <DataTable columns={ticketColumns} data={mockTickets} />
     </div>
