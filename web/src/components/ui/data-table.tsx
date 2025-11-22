@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       <div className="flex items-center justify-end py-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-orange-300">
+            <Button variant="outline" className="bg-orange-300 hover:bg-orange-400">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         </DropdownMenu>
       </div>
 
-      <div className="rounded-md border overflow-hidden">
+      <div className="rounded-md border bg-orange-200 overflow-hidden">
         <Table>
           <TableHeader className="bg-orange-400">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -142,7 +142,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
         <div className="space-x-2">
           <button
-            className="border px-3 py-1 rounded bg-orange-200"
+            className="border px-3 py-1 rounded bg-orange-200 hover:bg-orange-300"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -150,7 +150,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </button>
 
           <button
-            className="border px-3 py-1 rounded bg-orange-200"
+            className="border px-3 py-1 rounded bg-orange-200 hover:bg-orange-300"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >

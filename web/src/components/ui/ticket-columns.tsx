@@ -1,6 +1,20 @@
 import { type ColumnDef } from "@tanstack/react-table"
 import type Ticket from "@/types/ticket"
-import { ArrowUpDown } from "lucide-react"
+import { ArrowUpDown, CheckCircle, AlertTriangle, XCircle } from "lucide-react"
+
+function getPriorityIcon(priority: string) {
+  const base = "h-4 w-4"
+  switch (priority.toLowerCase()) {
+    case "low":
+      return <CheckCircle className={`${base} text-green-600`} />
+    case "medium":
+      return <AlertTriangle className={`${base} text-yellow-500`} />
+    case "high":
+      return <XCircle className={`${base} text-red-600`} />
+    default:
+      return <AlertTriangle className={`${base} text-gray-400`} />
+  }
+}
 
 export const ticketColumns: ColumnDef<Ticket>[] = [
   {
@@ -24,6 +38,15 @@ export const ticketColumns: ColumnDef<Ticket>[] = [
         Priority <ArrowUpDown className="h-4 w-4 hover:scale-110" />
       </button>
     ),
+    cell: ({ row }) => {
+      const priority = row.getValue("ticket_priority") as string
+      return (
+        <div className="flex items-center gap-2">
+          {getPriorityIcon(priority)}
+          <span className="capitalize">{priority}</span>
+        </div>
+      )
+    }
   },
   {
     accessorKey: "created_at",
